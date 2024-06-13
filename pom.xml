@@ -1,0 +1,298 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+          
+  
+  
+  <modelVersion>4.0.0</modelVersion>
+          
+  
+  
+  <groupId>org.example</groupId>
+          
+  
+  
+  <artifactId>Lab_2</artifactId>
+          
+  
+  
+  <version>1.0-SNAPSHOT</version>
+          
+  
+  
+  <packaging>pom</packaging>
+          
+  
+  
+  <modules>
+                    
+    
+    
+    <!-- reads the file, divides each into three parts: name, author, year. saves as type book -->
+                    
+    
+    
+    <module>book-reader</module>
+                    
+    
+    
+    <!-- reads the list and format it -->
+                    
+    
+    
+    <module>book-check</module>
+                    
+    
+    
+    <!-- write results in console -->
+                    
+    
+    
+    <module>book-show-formatted</module>
+
+      
+  </modules>
+          
+  
+  
+  <properties>
+                    
+    
+    
+    <maven.compiler.source>17</maven.compiler.source>
+                    
+    
+    
+    <maven.compiler.target>17</maven.compiler.target>
+                    
+    
+    
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+                
+  
+  
+  </properties>
+          
+  
+  
+  <dependencies>
+                    
+    
+    
+    <!-- "Use dependencies from Maven Central" task -->
+                    
+    
+    
+    <dependency>
+                              
+      
+      
+      <!-- using it for StringUtils in module book-check -->
+                              
+      
+      
+      <groupId>org.apache.commons</groupId>
+                              
+      
+      
+      <artifactId>commons-lang3</artifactId>
+                              
+      
+      
+      <version>3.14.0</version>
+                          
+    
+    
+    </dependency>
+                    
+    
+    
+    <dependency>
+                              
+      
+      
+      <!-- for tests, also in book-check -->
+                              
+      
+      
+      <groupId>junit</groupId>
+                              
+      
+      
+      <artifactId>junit</artifactId>
+                              
+      
+      
+      <version>4.13.2</version>
+                              
+      
+      
+      <scope>test</scope>
+                          
+    
+    
+    </dependency>
+                
+  
+  
+  </dependencies>
+          
+  
+  
+  <!-- two tasks are combined here: profile and copying -->
+          
+  
+  
+  <profiles>
+                    
+    
+    
+    <profile>
+                              
+      
+      
+      <id>copy-file-profile</id>
+                              
+      
+      
+      <activation>
+                                        
+        
+        
+        <activeByDefault>true</activeByDefault>
+                                    
+      
+      
+      </activation>
+                              
+      
+      
+      <build>
+                                        
+        
+        
+        <!-- the copy plugin works only if you log in through the profile. copy after compile -->
+                                        
+        
+        
+        <plugins>
+                                                  
+          
+          
+          <plugin>
+                                                            
+            
+            
+            <groupId>org.apache.maven.plugins</groupId>
+                                                            
+            
+            
+            <artifactId>maven-resources-plugin</artifactId>
+                                                            
+            
+            
+            <version>3.3.0</version>
+                                                            
+            
+            
+            <executions>
+                                                                      
+              
+              
+              <execution>
+                                                                                
+                
+                
+                <id>copy-resources</id>
+                                                                                
+                
+                
+                <phase>compile</phase>
+                                                                                
+                
+                
+                <goals>
+                                                                                          
+                  
+                  
+                  <goal>copy-resources</goal>
+                                                                                      
+                
+                
+                </goals>
+                                                                                
+                
+                
+                <configuration>
+                                                                                          
+                  
+                  
+                  <outputDirectory>${project.basedir}/book-reader/src/main/resources</outputDirectory>
+                                                                                          
+                  
+                  
+                  <resources>
+                                                                                                    
+                    
+                    
+                    <resource>
+                                                                                                              
+                      
+                      
+                      <directory>${project.basedir}/book-show-formatted/src/main/resources
+                                            </directory>
+                                                                                                              
+                      
+                      
+                      <includes>
+                                                                                                                        
+                        
+                        
+                        <include>list_books.txt</include>
+                                                                                                                    
+                      
+                      
+                      </includes>
+                                                                                                          
+                    
+                    
+                    </resource>
+                                                                                                
+                  
+                  
+                  </resources>
+                                                                                      
+                
+                
+                </configuration>
+                                                                            
+              
+              
+              </execution>
+                                                                  
+            
+            
+            </executions>
+                                                        
+          
+          
+          </plugin>
+                                              
+        
+        
+        </plugins>
+                                    
+      
+      
+      </build>
+                          
+    
+    
+    </profile>
+                
+  
+  
+  </profiles>
+      
+
+
+</project>
